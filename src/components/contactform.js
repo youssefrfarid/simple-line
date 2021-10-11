@@ -1,0 +1,73 @@
+import React, { useState } from "react"
+import "../App.css"
+import emailjs from "emailjs-com"
+
+function ContactForm() {
+  const [fName, setFname] = useState()
+  const [lName, setLname] = useState()
+  const [email, setEmail] = useState()
+  const [subject, setSubject] = useState()
+  const [message, setMessage] = useState()
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    emailjs.sendForm("service_3iv0crc", "template_wfx4jdt", e.target, "user_CQC9oHMEEPxsbswZk0HgP").then(
+      (result) => {
+        console.log(result.text)
+      },
+      (error) => {
+        console.log(error.text)
+      }
+    )
+    e.target.reset()
+  }
+
+  return (
+    <div className="px-8 mb-3 shadow-lg bg-grey-50 rounded-3xl">
+      <form onSubmit={handleSubmit} className="mt-6 font-montserrat w-full">
+        <div className="flex flex-grow ">
+          <div className="relative mt-10 w-full">
+            <input onChange={(e) => setFname(e.target.value)} className="peer h-10 w-full bg-transparent border-b-2 border-gray-300 text-gray-900 font-main placeholder-transparent focus:outline-none focus:border-blue-400" id="fName" name="fName" type="name" placeholder="First Name"></input>
+            <label className="absolute left-0 -top-3.5 font-montserrat text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm" htmlFor="fName">
+              First Name
+            </label>
+          </div>
+
+          <div className="relative mt-10 ml-10 w-full">
+            <input onChange={(e) => setLname(e.target.value)} className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-400" id="name" name="lName" type="lName" placeholder="Last Name"></input>
+            <label className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm invalid:border-red-500 required:border-red-500 valid:border-green-500" htmlFor="lName">
+              Last Name
+            </label>
+          </div>
+        </div>
+
+        <div className="relative mt-10">
+          <input onChange={(e) => setEmail(e.target.value)} className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-400" id="email" name="email" type="email" placeholder="Email"></input>
+          <label className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm invalid:border-red-500 required:border-red-500 valid:border-green-500" htmlFor="email">
+            Email
+          </label>
+        </div>
+
+        <div className="relative mt-10">
+          <input onChange={(e) => setSubject(e.target.value)} className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-400" id="subject" name="subject" type="subject" placeholder="Subject"></input>
+          <label className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm" htmlFor="subject">
+            Subject
+          </label>
+        </div>
+
+        <div className="relative mt-10">
+          <label className=" text-gray-600 text-sm font-montserrat" htmlFor="message">
+            Message
+          </label>
+          <textarea onChange={(e) => setMessage(e.target.value)} className="rounded h-32 w-full border-2 border-gray-300 text-gray-900 placeholder-transparent p-2 focus:outline-none focus:border-blue-400" id="message" name="message" type="message" placeholder="Message"></textarea>
+        </div>
+
+        <button className="container mx-auto mt-4 mb-8 w-full px-4 py-1 text-sm text-blue-400 font-semibold rounded-full border border-blue-400 hover:text-white hover:bg-blue-600 hover:border-transparent focus:outline-none focus:ring-2 focus: ring-blue-500" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  )
+}
+
+export default ContactForm
